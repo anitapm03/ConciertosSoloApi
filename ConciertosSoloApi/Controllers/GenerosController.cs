@@ -1,0 +1,46 @@
+﻿using ConciertosSoloApi.Repositories;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using ProyectoWebCSNetCore.Models;
+
+namespace ConciertosSoloApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class GenerosController : ControllerBase
+    {
+        private RepositoryGeneros repo;
+
+        public GenerosController(RepositoryGeneros repo)
+        {
+            this.repo = repo;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Genero>>> GetGeneros()
+        {
+            return await this.repo.GetGeneros();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Genero>> FindGenero(int id) 
+        { 
+            return await this.repo.FindGenero(id);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> InsertarGenero(string nombre)
+        {
+            await this.repo.InsertGenero(nombre);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteGenero(int id)
+        {
+            await this.repo.EliminarGenero(id);
+            return Ok();
+        }
+        
+    }
+}
