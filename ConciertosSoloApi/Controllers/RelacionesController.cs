@@ -38,7 +38,7 @@ namespace ConciertosSoloApi.Controllers
             return await this.repo.GetGenerosArtista(idartista);
         }
 
-        [HttpPost]
+        [HttpPost("{idartista}/{idconcierto}")]
         public async Task<ActionResult> InsertarArtistaConcierto
             (int idartista, int idconcierto)
         {
@@ -46,7 +46,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("{idartista}/{idgenero}")]
         public async Task<ActionResult> InsertarArtistaGenero
             (int idartista, int idgenero)
         {

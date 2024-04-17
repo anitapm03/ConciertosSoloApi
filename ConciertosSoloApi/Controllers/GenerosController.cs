@@ -22,20 +22,20 @@ namespace ConciertosSoloApi.Controllers
             return await this.repo.GetGeneros();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Genero>> FindGenero(int id) 
         { 
             return await this.repo.FindGenero(id);
         }
 
-        [HttpPut]
+        [HttpPut("{nombre}")]
         public async Task<ActionResult> InsertarGenero(string nombre)
         {
             await this.repo.InsertGenero(nombre);
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteGenero(int id)
         {
             await this.repo.EliminarGenero(id);

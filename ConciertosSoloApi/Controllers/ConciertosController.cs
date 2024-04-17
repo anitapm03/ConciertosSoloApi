@@ -64,14 +64,14 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult> DestacarConcierto(int id)
         {
             await this.repo.DestacarEvento(id);
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult> NoDestacarConcierto(int id)
         {
             await this.repo.NoDestacarEvento(id);
