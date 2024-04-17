@@ -16,7 +16,6 @@ namespace ConciertosSoloApi.Controllers
             
         }
 
-        //METODOS DE ARTISTAS
         [HttpGet]
         public async Task<ActionResult<List<Artista>>> GetArtistas()
         {
@@ -31,7 +30,7 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostArtista
+        public async Task<ActionResult> InsertarArtista
             (Artista artista)
         {
             await this.repo.InsertarArtista(artista.Nombre, artista.Imagen

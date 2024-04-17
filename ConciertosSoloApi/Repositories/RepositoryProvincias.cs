@@ -11,7 +11,7 @@ namespace ConciertosSoloApi.Repositories
         {
             this.context = context;
         }
-        public List<Provincia> GetProvincias()
+        public async Task<List<Provincia>> GetProvincias()
         {
             var consulta = from datos in this.context.Provincias
                            select datos;

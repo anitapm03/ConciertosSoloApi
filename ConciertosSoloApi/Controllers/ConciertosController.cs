@@ -28,13 +28,13 @@ namespace ConciertosSoloApi.Controllers
             return await this.repo.GetDestacados();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Evento>> FindEvento(int id)
         {
             return await this.repo.FindEvento(id);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Concierto>> FindConcierto(int id)
         {
             return await this.repo.FindConcierto(id);
@@ -64,13 +64,6 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<ActionResult> EliminarConcierto(int id)
-        {
-            await this.repo.EliminarConcierto(id);
-            return Ok();
-        }
-
         [HttpPut]
         public async Task<ActionResult> DestacarConcierto(int id)
         {
@@ -85,5 +78,11 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> EliminarConcierto(int id)
+        {
+            await this.repo.EliminarConcierto(id);
+            return Ok();
+        }
     }
 }
