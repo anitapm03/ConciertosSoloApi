@@ -17,6 +17,7 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<ActionResult<List<Provincia>>> GetProvincias()
         {
             return await this.repo.GetProvincias();

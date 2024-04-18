@@ -17,25 +17,29 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<ActionResult<List<Genero>>> GetGeneros()
         {
             return await this.repo.GetGeneros();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<Genero>> FindGenero(int id) 
         { 
             return await this.repo.FindGenero(id);
         }
 
-        [HttpPut("{nombre}")]
+        [HttpPut]
+        [Route("[action]/{nombre}")]
         public async Task<ActionResult> InsertarGenero(string nombre)
         {
             await this.repo.InsertGenero(nombre);
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("[action]/{id}")]
         public async Task<ActionResult> DeleteGenero(int id)
         {
             await this.repo.EliminarGenero(id);

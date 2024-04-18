@@ -16,7 +16,8 @@ namespace ConciertosSoloApi.Controllers
             this.repo = repo;
         }
 
-        [HttpGet("{idartista}")]
+        [HttpGet]
+        [Route("[action]/{idartista}")]
         public async Task<ActionResult<List<ArtistaConcierto>>>
             GetConciertosArtista(int idartista)
         {
@@ -24,21 +25,24 @@ namespace ConciertosSoloApi.Controllers
                 this.repo.GetConciertosArtista(idartista);
         }
 
-        [HttpGet("{idconcierto}")]
+        [HttpGet]
+        [Route("[action]/{idconcierto}")]
         public async Task<ActionResult<List<ArtistaConcierto>>>
             GetArtistasConcierto(int idconcierto)
         {
             return await this.repo.GetArtistasConcierto(idconcierto);
         }
 
-        [HttpGet("{idartista}")]
+        [HttpGet]
+        [Route("[action]/{idartista}")]
         public async Task<ActionResult<List<ArtistaGenero>>>
             GetGenerosArtista(int idartista)
         {
             return await this.repo.GetGenerosArtista(idartista);
         }
 
-        [HttpPost("{idartista}/{idconcierto}")]
+        [HttpPost]
+        [Route("[action]/{idartista}/{idconcierto}")]
         public async Task<ActionResult> InsertarArtistaConcierto
             (int idartista, int idconcierto)
         {
@@ -46,7 +50,8 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpPost("{idartista}/{idgenero}")]
+        [HttpPost]
+        [Route("[action]/{idartista}/{idgenero}")]
         public async Task<ActionResult> InsertarArtistaGenero
             (int idartista, int idgenero)
         {
@@ -54,7 +59,8 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpDelete("{idconcierto}/{idartista}")]
+        [HttpDelete]
+        [Route("[action]/{idconcierto}/{idartista}")]
         public async Task<ActionResult> EliminarRelacionConcierto
             (int idconcierto, int idartista)
         {
@@ -62,7 +68,8 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpDelete("{idartista}/{idgenero}")]
+        [HttpDelete]
+        [Route("[action]/{idartista}/{idgenero}")]
         public async Task<ActionResult> EliminarRelacionGenero
             (int idartista, int idgenero)
         {

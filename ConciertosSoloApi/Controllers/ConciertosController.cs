@@ -17,30 +17,35 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<ActionResult<List<Evento>>> GetEventos()
         {
             return await this.repo.GetEventos();
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<ActionResult<List<Evento>>> GetEventosDestacados()
         {
             return await this.repo.GetDestacados();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<Evento>> FindEvento(int id)
         {
             return await this.repo.FindEvento(id);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<Concierto>> FindConcierto(int id)
         {
             return await this.repo.FindConcierto(id);
         }
 
         [HttpPost]
+        [Route("[action]")]
         public async Task<ActionResult> InsertarConcierto(Concierto concierto)
         {
             await this.repo.InsertarConcierto(concierto.Nombre, concierto.Fecha,
@@ -49,6 +54,7 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpPut]
+        [Route("[action]")]
         public async Task<ActionResult> EditarConcierto(Concierto concierto)
         {
             await this.repo.EditarConcierto(concierto.IdConcierto, concierto.Nombre, 
@@ -57,6 +63,7 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpPut]
+        [Route("[action]")]
         public async Task<ActionResult> EditarConciertoFoto(Concierto concierto)
         {
             await this.repo.EditarConciertoFoto(concierto.IdConcierto, concierto.Nombre,
@@ -64,21 +71,24 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("[action]/{id}")]
         public async Task<ActionResult> DestacarConcierto(int id)
         {
             await this.repo.DestacarEvento(id);
             return Ok();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("[action]/{id}")]
         public async Task<ActionResult> NoDestacarConcierto(int id)
         {
             await this.repo.NoDestacarEvento(id);
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("[action]/{id}")]
         public async Task<ActionResult> EliminarConcierto(int id)
         {
             await this.repo.EliminarConcierto(id);

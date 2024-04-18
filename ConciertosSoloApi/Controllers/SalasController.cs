@@ -18,19 +18,22 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<ActionResult<List<Sala>>> GetSalas()
         {
             return await
                 this.repo.GetSalas();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<Sala>> FindSala(int id)
         {
             return await this.repo.FindSala(id);
         }
 
         [HttpPost]
+        [Route("[action]")]
         public async Task<ActionResult> InsertarSala
             (Sala sala)
         {
@@ -38,7 +41,8 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("[action]/{id}")]
         public async Task<ActionResult> EliminarSala(int id)
         {
             await this.repo.EliminarSala(id);
@@ -46,6 +50,7 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpPut]
+        [Route("[action]")]
         public async Task<ActionResult> EditarSala(Sala sala)
         {
             await this.repo.EditarSala(sala.IdSala, sala.Nombre,

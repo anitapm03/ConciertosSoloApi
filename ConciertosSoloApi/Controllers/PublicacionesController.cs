@@ -17,12 +17,14 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<ActionResult<List<UserPubli>>> GetPublicaciones()
         {
             return await this.repo.GetPublicaciones();
         }
 
         [HttpPost]
+        [Route("[action]")]
         public async Task<ActionResult> InsertarPublicacion
             (Publicacion publi)
         {
@@ -31,7 +33,8 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("[action]/{id}")]
         public async Task<ActionResult> EliminarPublicacion(int id)
         {
             await this.repo.EliminarPubli(id);

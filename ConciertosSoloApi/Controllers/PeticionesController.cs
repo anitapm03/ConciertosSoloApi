@@ -17,18 +17,21 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<ActionResult<List<PeticionEvento>>> GetPeticiones()
         {
             return await this.repo.GetPeticiones();
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<ActionResult<List<Peticion>>> GetListaPeticiones()
         {
             return await this.repo.GetListaPeticiones();
         }
 
         [HttpPost]
+        [Route("[action]")]
         public async Task<ActionResult> InsertarPeticion
             (PeticionEvento peticion)
         {
@@ -37,7 +40,8 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("[action]/{id}")]
         public async Task<ActionResult> EliminarPeticion(int id)
         {
             await this.repo.EliminarPeticion(id);

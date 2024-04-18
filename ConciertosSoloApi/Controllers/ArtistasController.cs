@@ -17,19 +17,22 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public async Task<ActionResult<List<Artista>>> GetArtistas()
         {
             return await
                 this.repo.GetArtistasAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
         public async Task<ActionResult<Artista>> FindArtista(int id)
         {
             return await this.repo.FindArtista(id);
         }
 
         [HttpPost]
+        [Route("[action]")]
         public async Task<ActionResult> InsertarArtista
             (Artista artista)
         {
@@ -38,7 +41,8 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("[action]/{id}")]
         public async Task<ActionResult> EliminarArtista(int id)
         {
             if (await this.repo.FindArtista(id) == null)
@@ -53,7 +57,7 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [HttpPut]
-        //[Route("[action]/{id}/{nombre}/{loc}")]
+        [Route("[action]")]
         public async Task<ActionResult> EditarArtista(Artista artista)
         {
             await this.repo.EditarArtista(artista.IdArtista, artista.Nombre,
