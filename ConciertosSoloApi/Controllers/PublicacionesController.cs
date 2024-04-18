@@ -1,4 +1,5 @@
 ﻿using ConciertosSoloApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoWebCSNetCore.Models;
@@ -16,6 +17,7 @@ namespace ConciertosSoloApi.Controllers
             this.repo = repo;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<UserPubli>>> GetPublicaciones()
@@ -23,6 +25,7 @@ namespace ConciertosSoloApi.Controllers
             return await this.repo.GetPublicaciones();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult> InsertarPublicacion
@@ -33,6 +36,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("[action]/{id}")]
         public async Task<ActionResult> EliminarPublicacion(int id)

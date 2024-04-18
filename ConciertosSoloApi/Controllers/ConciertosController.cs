@@ -1,4 +1,5 @@
 ﻿using ConciertosSoloApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoWebCSNetCore.Models;
@@ -44,6 +45,7 @@ namespace ConciertosSoloApi.Controllers
             return await this.repo.FindConcierto(id);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult> InsertarConcierto(Concierto concierto)
@@ -53,6 +55,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         [Route("[action]")]
         public async Task<ActionResult> EditarConcierto(Concierto concierto)
@@ -62,6 +65,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         [Route("[action]")]
         public async Task<ActionResult> EditarConciertoFoto(Concierto concierto)
@@ -71,6 +75,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         [Route("[action]/{id}")]
         public async Task<ActionResult> DestacarConcierto(int id)
@@ -79,6 +84,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         [Route("[action]/{id}")]
         public async Task<ActionResult> NoDestacarConcierto(int id)
@@ -87,6 +93,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("[action]/{id}")]
         public async Task<ActionResult> EliminarConcierto(int id)

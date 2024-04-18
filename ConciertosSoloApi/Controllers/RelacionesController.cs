@@ -1,4 +1,5 @@
 ﻿using ConciertosSoloApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoWebCSNetCore.Models;
@@ -41,6 +42,7 @@ namespace ConciertosSoloApi.Controllers
             return await this.repo.GetGenerosArtista(idartista);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("[action]/{idartista}/{idconcierto}")]
         public async Task<ActionResult> InsertarArtistaConcierto
@@ -50,6 +52,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("[action]/{idartista}/{idgenero}")]
         public async Task<ActionResult> InsertarArtistaGenero
@@ -59,6 +62,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("[action]/{idconcierto}/{idartista}")]
         public async Task<ActionResult> EliminarRelacionConcierto
@@ -68,6 +72,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("[action]/{idartista}/{idgenero}")]
         public async Task<ActionResult> EliminarRelacionGenero

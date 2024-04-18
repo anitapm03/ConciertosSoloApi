@@ -27,6 +27,7 @@ namespace ConciertosSoloApi.Controllers
                 this.repo.GetUsuarios();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("[action]/{id}")]
         public async Task<ActionResult<Usuario>> FindUsuario(string id)
@@ -34,6 +35,7 @@ namespace ConciertosSoloApi.Controllers
             return await this.repo.FindUserAsync(id);
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("[action]/{id}")]
         public async Task<ActionResult> EliminarUsuario(int id)
@@ -42,6 +44,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         [Route("[action]")]
         public async Task<ActionResult> EditarUsuario(Usuario usuario)
@@ -51,6 +54,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         [Route("[action]/{id}/{imagen}")]
         public async Task<ActionResult> EditarFotoUsuario(int id, string imagen)

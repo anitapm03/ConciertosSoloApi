@@ -1,4 +1,5 @@
 ﻿using ConciertosSoloApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoWebCSNetCore.Models;
@@ -32,6 +33,7 @@ namespace ConciertosSoloApi.Controllers
             return await this.repo.FindSala(id);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult> InsertarSala
@@ -41,6 +43,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("[action]/{id}")]
         public async Task<ActionResult> EliminarSala(int id)
@@ -49,6 +52,7 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         [Route("[action]")]
         public async Task<ActionResult> EditarSala(Sala sala)
