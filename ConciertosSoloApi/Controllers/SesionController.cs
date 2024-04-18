@@ -1,4 +1,5 @@
 ﻿using ConciertosSoloApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoWebCSNetCore.Models;
@@ -17,6 +18,7 @@ namespace ConciertosSoloApi.Controllers
 
         }
 
+        [Authorize]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<List<Usuario>>> GetUsuarios()

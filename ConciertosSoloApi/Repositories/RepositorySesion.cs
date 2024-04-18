@@ -14,6 +14,18 @@ namespace ConciertosSoloApi.Repositories
             this.context = context;
         }
 
+        //COSAS DE LA SEGURIDAD
+        public async Task<Usuario> LoginUsuario(string username, string password)
+        {
+
+            return await this.context.Usuarios
+                .Where(x => x.Nombre == username && x.Contrasena == password)
+                .FirstOrDefaultAsync();
+        }
+
+
+        //metodos antiguos jeje
+
         public async Task<List<Usuario>> GetUsuarios()
         {
             var consulta = from datos in context.Usuarios

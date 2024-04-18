@@ -14,7 +14,7 @@ namespace ProyectoWebCSNetCore.Models
         [Column("EMAIL")]
         public string Email { get; set; }
         [Column("CONTRASENA")]
-        public byte[] Contrasena { get; set; }
+        public string Contrasena { get; set; }
         [Column("ROL")]
         public int Rol { get; set; }
         [Column("BIO")]
