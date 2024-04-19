@@ -32,7 +32,7 @@ namespace ConciertosSoloApi.Controllers
         }
 
         [Authorize]
-        [HttpPut]
+        [HttpPost]
         [Route("[action]/{nombre}")]
         public async Task<ActionResult> InsertarGenero(string nombre)
         {
