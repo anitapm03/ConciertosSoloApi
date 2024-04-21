@@ -62,5 +62,23 @@ namespace ConciertosSoloApi.Controllers
             await this.repo.UpdatePicture(id, imagen);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult> RegistrarUsuario
+            (Usuario user)
+        {
+            await this.repo.InsertarUsuario(user.Nombre, user.Email, user.Contrasena, user.Bio);
+            return Ok();
+        }
+
     }
 }
+/*[HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult> InsertarSala
+            (Sala sala)
+        {
+            await this.repo.CrearSala(sala.Direccion, sala.Nombre, sala.IdProvincia);
+            return Ok();
+        }*/

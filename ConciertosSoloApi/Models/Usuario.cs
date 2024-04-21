@@ -23,9 +23,6 @@ namespace ProyectoWebCSNetCore.Models
         public string FotoPerfil { get; set; }
         [Column("SALT")]
         public string Salt { get; set; }
-        [Column("ACTIVO")]
-        public bool Activo { get; set; }
-        [Column("TOKENMAIL")]
-        public string TokenMail { get; set; }
+        
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ProyectoWebCSNetCore.Models;
+using ConciertosSoloApi.Helpers;
 
 namespace ConciertosSoloApi.Repositories
 {
@@ -75,6 +76,47 @@ namespace ConciertosSoloApi.Repositories
             SqlParameter pid = new SqlParameter("@ID", id);
 
             this.context.Database.ExecuteSqlRaw(sql, pid);
+        }
+
+        public async Task InsertarUsuario
+            (string nombre, string email,
+            string contrasena, string bio)
+        {
+
+            string sql = "SP_INSERTAR_USUARIO @ID, @NOMBRE, @EMAIL, " +
+                "@CONTRASENA, @BIO, @IMAGEN, @SALT";
+
+            SqlParameter pid = new SqlParameter("@ID", 1);
+            SqlParameter pnom = new SqlParameter("@NOMBRE", nombre);
+            SqlParameter pmail = new SqlParameter("@EMAIL", email);
+
+            string salt = HelperCryptography.GenerateSalt();
+            string passw = HelperCryptography.EncryptPassword(contrasena, salt);
+
+            SqlParameter pcont = new SqlParameter("@CONTRASENA", passw);
+            SqlParameter pbio = new SqlParameter("@BIO", bio);
+            SqlParameter pimg = new SqlParameter("@IMAGEN", "defaultprofile.jpg");
+
+            SqlParameter psalt = new SqlParameter("@SALT", salt);
+
+            this.context.Database.ExecuteSqlRaw(sql, pid, pnom, pmail,
+                pcont, pbio, pimg, psalt);
+
+        }
+
+        public void UpdatePassw(int id, string contrasena)
+        {
+            string salt = HelperCryptography.GenerateSalt();
+            string passw = HelperCryptography.EncryptPassword(contrasena, salt);
+
+            string sql = "SP_UPDATE_USER_PASSW @ID, @PASW, @SALT";
+
+            SqlParameter pid = new SqlParameter("@ID", id);
+            SqlParameter ppas = new SqlParameter("@PASW", passw);
+            SqlParameter psalt = new SqlParameter("@SALT", salt);
+
+            var consulta = this.context.Database.ExecuteSqlRaw(sql, pid, ppas, psalt);
+
         }
     }
 }
@@ -161,27 +203,4 @@ namespace ConciertosSoloApi.Repositories
             return null;
         }
     }
-}*/
-
-/*public async Task ActivateUserAsync(string token)
-{
-    //BUSCAMOS EL USUARIO POR SU TOKEN
-    //Usuario user = await this.FindUserTokenAsync(token);
-    bool activo = true;
-
-    SqlParameter ptoken = new SqlParameter("@TOKEN", token);
-    SqlParameter pact = new SqlParameter("@ACTIVO", activo);
-    string sql = "SP_FINDTOKEN_ACTIVATEUSER @TOKEN, @ACTIVO";
-
-
-    this.context.Database.ExecuteSqlRaw(sql, ptoken, pact);
-}
-
-public async Task<Usuario> FindUserTokenAsync(string token)
-{
-    var consulta = from datos in this.context.Usuarios
-                   where datos.TokenMail == token
-                   select datos;
-    Usuario user = await consulta.FirstOrDefaultAsync();
-    return user;
 }*/
