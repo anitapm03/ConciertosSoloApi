@@ -19,9 +19,30 @@ namespace ConciertosSoloApi.Repositories
         public async Task<Usuario> LoginUsuario(string username, string password)
         {
 
-            return await this.context.Usuarios
-                .Where(x => x.Nombre == username && x.Contrasena == password)
-                .FirstOrDefaultAsync();
+            Usuario user = 
+            await this.context.Usuarios.Where(x => x.Nombre == username).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return null;
+            }
+            else
+            {
+                string salt = user.Salt;
+                string temp =
+                    HelperCryptography.EncryptPassword(password, salt);
+                string passUser = user.Contrasena;
+                bool response =
+                    HelperCryptography.CompareArrays(temp, passUser);
+                if (response == true)
+                {
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
 
@@ -38,6 +59,15 @@ namespace ConciertosSoloApi.Repositories
         {
             var consulta = from datos in this.context.Usuarios
                            where datos.IdUsuario == int.Parse(idusuario)
+                           select datos;
+            Usuario user = await consulta.FirstOrDefaultAsync();
+            return user;
+        }
+
+        public async Task<Usuario> FindUserNombre(string username)
+        {
+            var consulta = from datos in this.context.Usuarios
+                           where datos.Nombre == username
                            select datos;
             Usuario user = await consulta.FirstOrDefaultAsync();
             return user;
@@ -104,7 +134,7 @@ namespace ConciertosSoloApi.Repositories
 
         }
 
-        public void UpdatePassw(int id, string contrasena)
+        public async Task UpdatePassw(int id, string contrasena)
         {
             string salt = HelperCryptography.GenerateSalt();
             string passw = HelperCryptography.EncryptPassword(contrasena, salt);

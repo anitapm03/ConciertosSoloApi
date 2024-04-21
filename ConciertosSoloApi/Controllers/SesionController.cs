@@ -27,12 +27,18 @@ namespace ConciertosSoloApi.Controllers
                 this.repo.GetUsuarios();
         }
 
-        [Authorize]
         [HttpGet]
         [Route("[action]/{id}")]
         public async Task<ActionResult<Usuario>> FindUsuario(string id)
         {
             return await this.repo.FindUserAsync(id);
+        }
+
+        [HttpGet]
+        [Route("[action]/{username}")]
+        public async Task<ActionResult<Usuario>> FindUsuarioNombre(string username)
+        {
+            return await this.repo.FindUserNombre(username);
         }
 
         [Authorize]
@@ -67,8 +73,20 @@ namespace ConciertosSoloApi.Controllers
         [Route("[action]")]
         public async Task<ActionResult> RegistrarUsuario
             (Usuario user)
+        ///{username}/{email}/{passw}/{bio}
+        //string username, string email, string passw, string bio
+        //username, email, passw, bio
         {
             await this.repo.InsertarUsuario(user.Nombre, user.Email, user.Contrasena, user.Bio);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("[action]/{id}/{contrasena}")]
+        public async Task<ActionResult> UpdatePassw(int id, string contrasena)
+        {
+            await this.repo.UpdatePassw(id, contrasena);
             return Ok();
         }
 

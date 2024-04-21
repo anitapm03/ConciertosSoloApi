@@ -18,7 +18,7 @@ namespace ConciertosSoloApi.Helpers
             return salt;
         }
 
-        public static bool CompareArrays(byte[] a, byte[] b)
+        /*public static bool CompareArrays(byte[] a, byte[] b)
         {
             bool iguales = true;
             if (a.Length != b.Length)
@@ -38,25 +38,50 @@ namespace ConciertosSoloApi.Helpers
                 }
             }
             return iguales;
+        }*/
+        public static bool CompareArrays(string hexStringA, string hexStringB)
+        {
+            // Convertir las cadenas hexadecimales a arrays de bytes
+            byte[] a = HexStringToByteArray(hexStringA);
+            byte[] b = HexStringToByteArray(hexStringB);
+
+            // Verificar si los arrays de bytes son de la misma longitud
+            if (a.Length != b.Length)
+            {
+                return false;
+            }
+
+            // Comparar los arrays de bytes elemento por elemento
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] != b[i])
+                {
+                    return false; // Si se encuentra un byte diferente, retornar false
+                }
+            }
+
+            return true; // Si los arrays son idénticos, retornar true
         }
 
-        //TENDREMOS UN METODO PARA CIFRAR EL PASSWORD
-        //VAMOS A RECIBIR EL PASSWORD (STRING) Y EL SALT (STRING)
-        //Y DEVOLVEREMOS EL ARRAY DE BYTES[] DEL RESULTADO CIFRADO
-        /*public static byte[] EncryptPassword(string password, string salt)
+        // Método auxiliar para convertir una cadena hexadecimal en un array de bytes
+        private static byte[] HexStringToByteArray(string hexString)
         {
-            string contenido = password + salt;
-            SHA512 sha = SHA512.Create();
-            //CONVERTIMOS contenido A BYTES[]
-            byte[] salida = Encoding.UTF8.GetBytes(contenido);
-            //CREAMOS LAS ITERACIONES
-            for (int i = 1; i <= 114; i++)
+            if (hexString.Length % 2 != 0)
             {
-                salida = sha.ComputeHash(salida);
+                throw new ArgumentException("La cadena hexadecimal debe tener una longitud par.", nameof(hexString));
             }
-            sha.Clear();
-            return salida;
-        }*/
+
+            byte[] byteArray = new byte[hexString.Length / 2];
+
+            for (int i = 0; i < byteArray.Length; i++)
+            {
+                byteArray[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+            }
+
+            return byteArray;
+        }
+
+
         public static string EncryptPassword(string password, string salt)
         {
             string contenido = password + salt;
