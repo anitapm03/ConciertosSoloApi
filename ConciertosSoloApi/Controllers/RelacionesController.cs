@@ -58,7 +58,7 @@ namespace ConciertosSoloApi.Controllers
         public async Task<ActionResult> InsertarArtistaGenero
             (int idartista, int idgenero)
         {
-            await this.repo.InsertarArtistaConcierto(idartista, idgenero);
+            await this.repo.InsertarArtistaGenero(idartista, idgenero);
             return Ok();
         }
 
