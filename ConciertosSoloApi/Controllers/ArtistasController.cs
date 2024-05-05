@@ -69,5 +69,14 @@ namespace ConciertosSoloApi.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpPut]
+        [Route("[action]")]
+        public async Task<ActionResult> EditarArtistaFoto(Artista artista)
+        {
+            await this.repo.EditarArtistaFoto(artista.IdArtista, artista.Nombre,
+                artista.Imagen, artista.Spotify, artista.Descripcion);
+            return Ok();
+        }
     }
 }
