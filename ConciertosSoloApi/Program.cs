@@ -1,9 +1,23 @@
+using Azure.Security.KeyVault.Secrets;
 using ConciertosSoloApi.Data;
 using ConciertosSoloApi.Helpers;
 using ConciertosSoloApi.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAzureClients(factory =>
+{
+    factory.AddSecretClient(
+        builder.Configuration.GetSection("KeyVault"));
+});
+
+SecretClient secretClient =
+    builder.Services.BuildServiceProvider().GetService<SecretClient>();
+
+KeyVaultSecret secret = await
+    secretClient.GetSecretAsync("SQL");
 
 //cositas de la seguridad
 //creamos una instancia del helper
@@ -20,8 +34,8 @@ builder.Services.AddAuthentication
     .AddJwtBearer(helper.GetJwtBearerOptions());
 
 // Add services to the container.
-string connectionString =
-    builder.Configuration.GetConnectionString("SQL");
+string connectionString = secret.Value;
+    //builder.Configuration.GetConnectionString("SQL");
 builder.Services.AddTransient<RepositoryArtistas>();
 builder.Services.AddTransient<RepositoryConciertos>();
 builder.Services.AddTransient<RepositoryGeneros>();
