@@ -94,8 +94,9 @@ namespace ConciertosSoloApi.Repositories
         {
             string sql = "SP_UPDATE_USER_FOTO @ID, @IMAGEN";
 
+            string urlimagen = "https://conciertossolostorage.blob.core.windows.net/users/" + imagen;
             SqlParameter pid = new SqlParameter("@ID", id);
-            SqlParameter pfoto = new SqlParameter("@IMAGEN", imagen);
+            SqlParameter pfoto = new SqlParameter("@IMAGEN", urlimagen);
 
             var consulta = this.context.Database.ExecuteSqlRaw(sql, pid, pfoto);
         }
@@ -125,7 +126,7 @@ namespace ConciertosSoloApi.Repositories
 
             SqlParameter pcont = new SqlParameter("@CONTRASENA", passw);
             SqlParameter pbio = new SqlParameter("@BIO", bio);
-            SqlParameter pimg = new SqlParameter("@IMAGEN", "defaultprofile.jpg");
+            SqlParameter pimg = new SqlParameter("@IMAGEN", "https://conciertossolostorage.blob.core.windows.net/users/defaultprofile.jpg");
 
             SqlParameter psalt = new SqlParameter("@SALT", salt);
 
