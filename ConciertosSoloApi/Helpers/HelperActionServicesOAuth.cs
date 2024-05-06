@@ -2,24 +2,37 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Azure.Security.KeyVault.Secrets;
 
 namespace ConciertosSoloApi.Helpers
 {
     public class HelperActionServicesOAuth
     {
+        private SecretClient secretCli;
+
         public string Issuer { get; set; }
         public string Audience { get; set; }
         public string SecretKey { get; set; }
 
         public HelperActionServicesOAuth
-            (IConfiguration configuration)
+            (IConfiguration configuration, SecretClient secretCli)
         {
-            this.Issuer =
-                configuration.GetValue<string>("ApiOAuth:Issuer");
-            this.Audience =
-                configuration.GetValue<string>("ApiOAuth:Audience");
+            this.secretCli = secretCli;
+            this.Issuer = 
+                GetSecretFromKeyVaultAsync("Issuer").GetAwaiter().GetResult();
+                //configuration.GetValue<string>("ApiOAuth:Issuer");
+            this.Audience = 
+                GetSecretFromKeyVaultAsync("Audience").GetAwaiter().GetResult();
+            //configuration.GetValue<string>("ApiOAuth:Audience");
             this.SecretKey =
-                configuration.GetValue<string>("ApiOAuth:SecretKey");
+                GetSecretFromKeyVaultAsync("SecretKey").GetAwaiter().GetResult();
+            //configuration.GetValue<string>("ApiOAuth:SecretKey");
+        }
+
+        private async Task<string> GetSecretFromKeyVaultAsync(string secretName)
+        {
+            KeyVaultSecret secret = await secretCli.GetSecretAsync(secretName);
+            return secret.Value;
         }
 
         //necesitamos un metodo para generar el token 

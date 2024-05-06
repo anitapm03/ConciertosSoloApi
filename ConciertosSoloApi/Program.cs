@@ -22,7 +22,7 @@ KeyVaultSecret secret = await
 //cositas de la seguridad
 //creamos una instancia del helper
 HelperActionServicesOAuth helper =
-    new HelperActionServicesOAuth(builder.Configuration);
+    new HelperActionServicesOAuth(builder.Configuration, secretClient);
 //esta instancia del helper debemos incluirla dentro
 //de nuestra app solamente una vez para que todo lo que
 //hemos creado dentro no se genere de nuevo
